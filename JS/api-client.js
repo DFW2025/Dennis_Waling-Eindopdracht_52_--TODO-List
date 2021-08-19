@@ -159,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
     async function postItem(e) {
         e.preventDefault();
         const newItem = document.querySelector("#input").value;
-        const url = 'http://localhost:3000/';
         const post = {
             method: "POST",
             headers: {
