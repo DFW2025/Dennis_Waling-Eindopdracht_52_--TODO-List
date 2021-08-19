@@ -123,10 +123,10 @@ document.addEventListener("DOMContentLoaded", () => {
       
        newTask.addEventListener("change", e => {
            e.preventDefault();
-           updateItem2(newTask.value)
+           updateItemText(newTask.value)
        });
 
-       async function updateItem2 (e) {
+       async function updateItemText(e) {
           
            const put2 = {
                method: "PUT",
