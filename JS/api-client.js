@@ -6,6 +6,7 @@ const header = new Headers();
 header.append("Content-Type", "application/json");
 const url = 'http://localhost:3000/';
 
+
 // GET REQUEST HEADER
 
 const get = {
@@ -25,6 +26,8 @@ const del = {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // GET Items
+
     async function getItems() {
         await fetch(url, get)
             .then(resp => resp.json())
@@ -33,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    // GET Items
 
     function Items(data) {
 
@@ -49,17 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
             newLi.dataset.id = item._id;
             newTask.value = item.description;
 
-           
 
             function check() {
                 if (item.done === true) {
-                    checkTask.innerHTML = `<input type="checkbox" checked>`
-                    newTask.classList.add("taskdone")
-                    newTask.classList.remove("tasknotdone")
+                    checkTask.innerHTML = `<input type="checkbox" checked>`;
+                    newTask.classList.add("taskdone");
+                    newTask.classList.remove("tasknotdone");
                 } else {
-                    checkTask.innerHTML = `<input type="checkbox">`
-                    newTask.classList.remove("taskdone")
-                    newTask.classList.add("tasknotdone")
+                    checkTask.innerHTML = `<input type="checkbox">`;
+                    newTask.classList.remove("taskdone");
+                    newTask.classList.add("tasknotdone");
                 }
             }
             check()
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // DELETE Items
 
-            deleteTask.addEventListener("click", () => deleteItem())
+            deleteTask.addEventListener("click", () => deleteItem());
 
             async function deleteItem() {
                 await fetch(`http://localhost:3000/${item._id}`, del)
@@ -86,24 +87,24 @@ document.addEventListener("DOMContentLoaded", () => {
             checkTask.addEventListener("click", e => {
                 if (e.target.checked) {
                     console.log("ToDo Item is done..");
-                    newTask.classList.add("taskdone")
-                    newTask.classList.remove("tasknotdone")
+                    newTask.classList.add("taskdone");
+                    newTask.classList.remove("tasknotdone");
                     updateItemStatus(true);
 
 
                 } else {
                     console.log("Todo Item is not yet done..");
-                    newTask.classList.remove("taskdone")
-                    newTask.classList.add("tasknotdone")
+                    newTask.classList.remove("taskdone");
+                    newTask.classList.add("tasknotdone");
                     updateItemStatus(false);
 
                 }
             });
-    
+
 
             async function updateItemStatus(e) {
-                const put = {
 
+                const put = {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -118,18 +119,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     .catch(err => console.log(err));
             }
 
-          // UPDATE Items when task text has been changed
+            // UPDATE Items when task text has been changed
 
-      
-       newTask.addEventListener("change", e => {
-           e.preventDefault();
-           updateItemText(newTask.value)
-       });
 
-       async function updateItemText(e) {
-          
-           const put2 = {
-               method: "PUT",
+            newTask.addEventListener("change", e => {
+                e.preventDefault();
+                updateItemText(newTask.value);
+            });
+
+            async function updateItemText(e) {
+
+                const put2 = {
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
                     },
@@ -137,11 +138,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         "description": e
                     })
                 }
-           await fetch(`http://localhost:3000/${item._id}`, put2)
+                await fetch(`http://localhost:3000/${item._id}`, put2)
                     .then(resp => resp.json())
                     .catch(err => console.log(err));
 
-       }
+            }
 
 
         }
@@ -151,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getItems();
 
 
-    // POST Items....
+    // POST Items
 
     const form = document.querySelector("#form");
     form.addEventListener("submit", (e) => postItem(e));
